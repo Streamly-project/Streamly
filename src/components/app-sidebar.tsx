@@ -2,106 +2,49 @@
 
 import * as React from "react"
 import {
-  DatabaseZap,
-  Clapperboard,
-  GalleryVerticalEnd,
-  TvMinimalPlay,
-  Settings2,
-  Users,
-} from "lucide-react"
+  IconPhotoVideo,
+} from "@tabler/icons-react"
 
+import { NavDocuments } from "@/components/nav-documents"
 import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
+import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
 } from "@/components/shadcn/sidebar"
 
-
-const data = {
-  user: {
-    name: "Streamly",
-    email: "Administrator",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Streamly",
-      logo: GalleryVerticalEnd,
-      plan: "Dashboard",
-    }
-  ],
-  navMain: [
-    {
-      title: "Users",
-      url: "#",
-      icon: Users,
-      isActive: true,
-      items: [
-        {
-          title: "Actives Users",
-          url: "/dashboard/users",
-        },
-        {
-          title: "New Account",
-          url: "/dashboard/new-user",
-        },
-        {
-          title: "Administrators",
-          url: "/dashboard/admins",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Films",
-      url: "#",
-      icon: Clapperboard,
-    },
-    {
-      name: "Series",
-      url: "#",
-      icon: TvMinimalPlay,
-    },
-    {
-      name: "Data base",
-      url: "#",
-      icon: DatabaseZap,
-    }
-  ],
-}
-
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ data, ...props }: React.ComponentProps<typeof Sidebar> & { data: any }) {
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              className="data-[slot=sidebar-menu-button]:!p-1.5"
+            >
+              <a href="#">
+                <IconPhotoVideo className="!size-5" />
+                <span className="text-base font-semibold">Streamly</span>
+              </a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavDocuments items={data.navMain} title={data.navTitle[0]} />
+        <NavDocuments items={data.documents} title={data.navTitle[1]} />
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
-      <SidebarRail />
     </Sidebar>
   )
 }

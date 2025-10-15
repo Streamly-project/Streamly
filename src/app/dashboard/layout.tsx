@@ -1,49 +1,79 @@
+"use client";
+
 import { AppSidebar } from "@/components/app-sidebar"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/shadcn/breadcrumb"
-import { Separator } from "@/components/shadcn/separator"
+import { SiteHeader } from "@/components/site-header"
 import {
   SidebarInset,
   SidebarProvider,
-  SidebarTrigger,
 } from "@/components/shadcn/sidebar"
+import { IconCamera, IconChartBar, IconDashboard, IconDatabase, IconFileAi, IconFileDescription, IconFileWord, IconFolder, IconHelp, IconListDetails, IconReport, IconSearch, IconSettings, IconUsers } from "@tabler/icons-react"
 
-export default function DashboardLayout({children}: {children: React.ReactNode}) {
+// import data from "./data.json"
+
+
+const data = {
+  user: {
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
+  },
+  navTitle: [
+    "Informations",
+    "Storage",
+  ],
+  navMain: [
+    {
+      name: "Dashboard",
+      url: "/dashboard",
+      icon: IconDashboard,
+    },
+    {
+      name: "Users",
+      url: "/dashboard/users",
+      icon: IconUsers,
+    },
+  ],
+  navSecondary: [
+    {
+      title: "Settings",
+      url: "/dashboard/settings",
+      icon: IconSettings,
+    }
+  ],
+  documents: [
+    {
+      name: "Films",
+      url: "/dashboard/films",
+      icon: IconReport,
+    },
+    {
+      name: "Series",
+      url: "/dashboard/series",
+      icon: IconFileWord,
+    },
+    {
+      name: "Data Base",
+      url: "/dashboard/database",
+      icon: IconDatabase,
+    },
+  ],
+}
+
+
+export default function Page({children}: {children: React.ReactNode}) {
   return (
-    <SidebarProvider>
-      <AppSidebar />
+    <SidebarProvider
+      style={
+        {
+          "--sidebar-width": "calc(var(--spacing) * 72)",
+          "--header-height": "calc(var(--spacing) * 12)",
+        } as React.CSSProperties
+      }
+    >
+      <AppSidebar variant="inset" data={data} />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator
-              orientation="vertical"
-              className="mr-2 data-[orientation=vertical]:h-4"
-            />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-        </header>
-        <main>
-            {children}
-        </main>
+        <SiteHeader />
+          {children}
       </SidebarInset>
     </SidebarProvider>
   )
