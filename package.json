@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:test": "node scripts/db-test.mjs",
     "prisma:studio": "prisma studio",
     "postinstall": "prisma generate"
   },
